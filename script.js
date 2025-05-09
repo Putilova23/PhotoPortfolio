@@ -140,6 +140,46 @@ class Tabs {
     }
 }
 
+// Класс для работы с навигацией
+class Navigation {
+    constructor() {
+        this.navbar = document.querySelector('.navbar');
+        this.toggler = document.querySelector('.navbar-toggler');
+        this.collapse = document.querySelector('.navbar-collapse');
+        this.navLinks = document.querySelectorAll('.nav-link');
+        this.setupEventListeners();
+    }
+
+    setupEventListeners() {
+        // Обработчик для кнопки мобильного меню
+        if (this.toggler) {
+            this.toggler.addEventListener('click', () => this.toggleMenu());
+        }
+
+        // Закрытие меню при клике на ссылку
+        this.navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    this.collapse.classList.remove('show');
+                }
+            });
+        });
+
+        // Закрытие меню при клике вне меню
+        document.addEventListener('click', (e) => {
+            if (window.innerWidth <= 768 && 
+                this.collapse.classList.contains('show') && 
+                !this.navbar.contains(e.target)) {
+                this.collapse.classList.remove('show');
+            }
+        });
+    }
+
+    toggleMenu() {
+        this.collapse.classList.toggle('show');
+    }
+}
+
 // Инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM загружен');
@@ -230,4 +270,7 @@ document.addEventListener('DOMContentLoaded', function() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     }
+
+    // Инициализация навигации
+    const navigation = new Navigation();
 });
