@@ -60,74 +60,123 @@ class SessionStorage {
   }
 }
 
-// Ждем полной загрузки страницы и Bootstrap
-window.addEventListener('load', function() {
-    // Проверяем, что Bootstrap доступен
-    if (typeof bootstrap === 'undefined') {
-        console.error('Bootstrap не загружен');
-        return;
+// Класс для работы с модальным окном
+class Modal {
+    constructor(modalId) {
+        this.modal = document.getElementById(modalId);
+        if (!this.modal) {
+            console.error(`Модальное окно с id "${modalId}" не найдено`);
+            return;
+        }
+        this.closeButtons = this.modal.querySelectorAll('.close-btn');
+        this.setupEventListeners();
     }
 
-    try {
-        // Инициализация модальных окон
-        const bookingModal = new bootstrap.Modal('#bookingModal');
-        const accountModal = new bootstrap.Modal('#accountModal');
+    setupEventListeners() {
+        // Закрытие по кнопке
+        this.closeButtons.forEach(button => {
+            button.addEventListener('click', () => this.hide());
+        });
 
-        // Обработчик для главной кнопки "Записаться на съёмку"
-        document.getElementById('btnBookingMain')?.addEventListener('click', () => {
+        // Закрытие по клику вне модального окна
+        this.modal.addEventListener('click', (e) => {
+            if (e.target === this.modal) {
+                this.hide();
+            }
+        });
+
+        // Закрытие по Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.modal.classList.contains('show')) {
+                this.hide();
+            }
+        });
+    }
+
+    show() {
+        console.log('Открытие модального окна');
+        this.modal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
+
+    hide() {
+        console.log('Закрытие модального окна');
+        this.modal.classList.remove('show');
+        document.body.style.overflow = '';
+    }
+}
+
+// Инициализация при загрузке страницы
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM загружен');
+
+    // Инициализация модального окна
+    const bookingModal = new Modal('bookingModal');
+
+    // Обработчики для кнопок "Записаться на съёмку"
+    const btnBookingMain = document.getElementById('btnBookingMain');
+    if (btnBookingMain) {
+        console.log('Кнопка btnBookingMain найдена');
+        btnBookingMain.addEventListener('click', () => {
+            console.log('Клик по кнопке btnBookingMain');
             bookingModal.show();
         });
+    } else {
+        console.error('Кнопка btnBookingMain не найдена');
+    }
 
-        // Обработчик для кнопки "Записаться на съёмку" в разделе услуг
-        document.getElementById('btnBookingServices')?.addEventListener('click', () => {
+    const btnBookingServices = document.getElementById('btnBookingServices');
+    if (btnBookingServices) {
+        console.log('Кнопка btnBookingServices найдена');
+        btnBookingServices.addEventListener('click', () => {
+            console.log('Клик по кнопке btnBookingServices');
             bookingModal.show();
         });
+    } else {
+        console.error('Кнопка btnBookingServices не найдена');
+    }
 
-        // Обработчик для кнопки личного кабинета
-        document.getElementById('btnAccount')?.addEventListener('click', () => {
-            accountModal.show();
+    // Установка минимальной даты для формы бронирования
+    const dateInput = document.getElementById('date');
+    if (dateInput) {
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.min = today;
+    }
+
+    // Обработка отправки формы
+    const bookingForm = document.getElementById('bookingForm');
+    if (bookingForm) {
+        bookingForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            console.log('Отправка формы');
+            
+            if (!bookingForm.checkValidity()) {
+                event.stopPropagation();
+                bookingForm.classList.add('was-validated');
+                return;
+            }
+
+            const formData = new FormData(bookingForm);
+            const fullName = formData.get('fullName');
+            const contact = formData.get('contact');
+            const services = formData.getAll('services');
+            const date = formData.get('date');
+
+            // Простое уведомление об успешной записи
+            alert(`Спасибо за запись, ${fullName}! Мы свяжемся с вами по номеру ${contact} для подтверждения записи на ${date}`);
+            
+            // Сброс формы и закрытие модального окна
+            bookingForm.reset();
+            bookingForm.classList.remove('was-validated');
+            bookingModal.hide();
         });
+    }
 
-        // Обработчик для кнопки "Наверх"
-        document.getElementById('btnScrollTop')?.addEventListener('click', () => {
+    // Обработчик для кнопки "Наверх"
+    const btnScrollTop = document.getElementById('btnScrollTop');
+    if (btnScrollTop) {
+        btnScrollTop.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
-
-        // Установка минимальной даты для формы бронирования
-        const dateInput = document.getElementById('date');
-        if (dateInput) {
-            const today = new Date().toISOString().split('T')[0];
-            dateInput.min = today;
-        }
-
-        // Обработка отправки формы
-        const bookingForm = document.getElementById('bookingForm');
-        if (bookingForm) {
-            bookingForm.addEventListener('submit', function(event) {
-                event.preventDefault();
-                
-                if (!bookingForm.checkValidity()) {
-                    event.stopPropagation();
-                    bookingForm.classList.add('was-validated');
-                    return;
-                }
-
-                const formData = new FormData(bookingForm);
-                const fullName = formData.get('fullName');
-                const contact = formData.get('contact');
-                const services = formData.getAll('services');
-                const date = formData.get('date');
-
-                // Простое уведомление об успешной записи
-                alert(`Спасибо за запись, ${fullName}! Мы свяжемся с вами по номеру ${contact} для подтверждения записи на ${date}`);
-                
-                // Сброс формы и закрытие модального окна
-                bookingForm.reset();
-                bookingForm.classList.remove('was-validated');
-                bookingModal.hide();
-            });
-        }
-    } catch (error) {
-        console.error('Ошибка инициализации:', error);
     }
 });

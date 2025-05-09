@@ -280,27 +280,27 @@
     </div>
   </footer>
 
-  <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <form id="bookingForm" class="modal-content needs-validation" novalidate>
-        <div class="modal-header bg-dark text-white">
-          <h5 class="modal-title" id="bookingModalLabel">Записаться на съёмку</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Закрыть"></button>
-        </div>
+  <div class="modal" id="bookingModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Записаться на съёмку</h5>
+        <button type="button" class="close-btn" aria-label="Закрыть">&times;</button>
+      </div>
+      <form id="bookingForm" class="needs-validation" novalidate>
         <div class="modal-body">
-          <div class="mb-3">
-            <label for="fullName" class="form-label">ФИО</label>
+          <div class="form-group">
+            <label for="fullName">ФИО</label>
             <input type="text" class="form-control" id="fullName" name="fullName" required placeholder="Иванова Александра Сергеевна" />
             <div class="invalid-feedback">Пожалуйста, введите ФИО.</div>
           </div>
-          <div class="mb-3">
-            <label for="contact" class="form-label">Контактные данные</label>
+          <div class="form-group">
+            <label for="contact">Контактные данные</label>
             <input type="tel" class="form-control" id="contact" name="contact" required placeholder="+7 (999) 123-45-67" pattern="^\+7\s?\(?\d{3}\)?\s?\d{3}[-]?\d{2}[-]?\d{2}$" />
             <div class="invalid-feedback">Пожалуйста, введите корректный номер телефона в формате +7 (999) 123-45-67.</div>
           </div>
-          <div class="mb-3">
-            <label for="serviceSelect" class="form-label">Выберите услугу</label>
-            <select multiple class="form-select" id="serviceSelect" name="services" required aria-describedby="serviceHelp">
+          <div class="form-group">
+            <label for="serviceSelect">Выберите услугу</label>
+            <select multiple class="form-control" id="serviceSelect" name="services" required>
               <option value="fashion">Fashion</option>
               <option value="portrait">Портрет</option>
               <option value="interior">Интерьерная фотография</option>
@@ -308,18 +308,18 @@
               <option value="wedding">Свадебная фотография</option>
               <option value="landscape">Пейзаж</option>
             </select>
-            <div id="serviceHelp" class="form-text">Можно выбрать несколько услуг, удерживая Ctrl (Cmd на Mac).</div>
+            <div class="form-text">Можно выбрать несколько услуг, удерживая Ctrl (Cmd на Mac).</div>
             <div class="invalid-feedback">Пожалуйста, выберите хотя бы одну услугу.</div>
           </div>
-          <div class="mb-3">
-            <label for="date" class="form-label">Выберите дату</label>
+          <div class="form-group">
+            <label for="date">Выберите дату</label>
             <input type="date" class="form-control" id="date" name="date" required min="" />
             <div class="invalid-feedback">Пожалуйста, выберите дату.</div>
           </div>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-dark">Отправить</button>
-          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Отмена</button>
+          <button type="submit" class="btn btn-primary">Отправить</button>
+          <button type="button" class="btn btn-secondary close-btn">Отмена</button>
         </div>
       </form>
     </div>
@@ -364,7 +364,6 @@
       </div>
     </div>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
