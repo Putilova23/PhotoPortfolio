@@ -14,6 +14,16 @@ const SERVICE_NAMES = {
 // Утилиты
 const getServiceName = (key) => SERVICE_NAMES[key] || key;
 
+function getServiceName(serviceId) {
+    const services = {
+        'family': 'Семейная съёмка',
+        'wedding': 'Свадебная съёмка',
+        'portrait': 'Портретная съёмка',
+        'event': 'Съёмка мероприятий'
+    };
+    return services[serviceId] || serviceId;
+}
+
 // Хранилище сессий
 class SessionStorage {
   constructor() {
@@ -48,6 +58,11 @@ class SessionStorage {
     services.forEach(service => {
       this.sessions.push({ date, service });
     });
+    this.saveToStorage();
+  }
+
+  removeSession(date) {
+    this.sessions = this.sessions.filter(s => s.date !== date);
     this.saveToStorage();
   }
 
@@ -147,6 +162,7 @@ class Navigation {
         this.toggler = document.querySelector('.navbar-toggler');
         this.collapse = document.querySelector('.navbar-collapse');
         this.navLinks = document.querySelectorAll('.nav-link');
+        this.lastScrollTop = 0;
         this.setupEventListeners();
     }
 
@@ -173,6 +189,24 @@ class Navigation {
                 this.collapse.classList.remove('show');
             }
         });
+
+        // Обработчик прокрутки страницы
+        window.addEventListener('scroll', () => this.handleScroll());
+    }
+
+    handleScroll() {
+        const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+        
+        // Определяем направление прокрутки
+        if (currentScroll > this.lastScrollTop && currentScroll > 100) {
+            // Прокрутка вниз и страница прокручена более чем на 100px
+            this.navbar.style.transform = 'translateY(-100%)';
+        } else {
+            // Прокрутка вверх или страница прокручена менее чем на 100px
+            this.navbar.style.transform = 'translateY(0)';
+        }
+        
+        this.lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
     }
 
     toggleMenu() {
@@ -180,9 +214,159 @@ class Navigation {
     }
 }
 
+// Класс для работы с календарем
+class Calendar {
+    constructor() {
+        this.currentDate = new Date();
+        this.sessions = new SessionStorage();
+        this.calendarBody = document.getElementById('calendarBody');
+        this.currentMonthElement = document.querySelector('.current-month');
+        this.prevMonthBtn = document.querySelector('.prev-month');
+        this.nextMonthBtn = document.querySelector('.next-month');
+        this.setupEventListeners();
+        this.render();
+    }
+
+    setupEventListeners() {
+        this.prevMonthBtn.addEventListener('click', () => {
+            this.currentDate.setMonth(this.currentDate.getMonth() - 1);
+            this.render();
+        });
+
+        this.nextMonthBtn.addEventListener('click', () => {
+            this.currentDate.setMonth(this.currentDate.getMonth() + 1);
+            this.render();
+        });
+    }
+
+    render() {
+        const year = this.currentDate.getFullYear();
+        const month = this.currentDate.getMonth();
+        
+        // Обновляем заголовок календаря
+        const monthNames = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 
+                          'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+        this.currentMonthElement.textContent = `${monthNames[month]} ${year}`;
+
+        // Получаем первый день месяца и количество дней
+        const firstDay = new Date(year, month, 1);
+        const lastDay = new Date(year, month + 1, 0);
+        const daysInMonth = lastDay.getDate();
+        
+        // Получаем день недели первого дня (0 - воскресенье, 1 - понедельник, ...)
+        let firstDayOfWeek = firstDay.getDay();
+        if (firstDayOfWeek === 0) firstDayOfWeek = 7; // Преобразуем воскресенье в 7
+        
+        // Создаем календарь
+        let html = '';
+        let day = 1;
+        
+        // Создаем строки календаря
+        for (let i = 0; i < 6; i++) {
+            html += '<tr>';
+            
+            // Заполняем ячейки
+            for (let j = 1; j <= 7; j++) {
+                if (i === 0 && j < firstDayOfWeek) {
+                    // Пустые ячейки в начале месяца
+                    html += '<td></td>';
+                } else if (day > daysInMonth) {
+                    // Пустые ячейки в конце месяца
+                    html += '<td></td>';
+                } else {
+                    const date = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                    const isToday = this.isToday(year, month, day);
+                    const hasSession = this.sessions.getSessionsByDate(date).length > 0;
+                    
+                    let classes = [];
+                    if (isToday) classes.push('today');
+                    if (hasSession) classes.push('has-session');
+                    
+                    html += `<td data-date="${date}" class="${classes.join(' ')}">${day}</td>`;
+                    day++;
+                }
+            }
+            
+            html += '</tr>';
+            if (day > daysInMonth) break;
+        }
+        
+        this.calendarBody.innerHTML = html;
+        
+        // Добавляем обработчики для ячеек
+        this.calendarBody.querySelectorAll('td[data-date]').forEach(cell => {
+            cell.addEventListener('click', () => this.handleDateClick(cell));
+        });
+    }
+
+    isToday(year, month, day) {
+        const today = new Date();
+        return today.getFullYear() === year && 
+               today.getMonth() === month && 
+               today.getDate() === day;
+    }
+
+    handleDateClick(cell) {
+        const date = cell.dataset.date;
+        const sessions = this.sessions.getSessionsByDate(date);
+        
+        if (sessions.length > 0) {
+            // Показываем список сессий на эту дату
+            const sessionList = sessions.map(s => s.service).join(', ');
+            alert(`Запланированные сессии на ${date}:\n${sessionList}`);
+        } else {
+            // Предлагаем добавить новую сессию
+            if (confirm(`Добавить новую сессию на ${date}?`)) {
+                const service = prompt('Введите тип съёмки:');
+                if (service) {
+                    this.sessions.addSession(date, [service]);
+                    this.render();
+                    this.updateSessionsList();
+                }
+            }
+        }
+    }
+
+    updateSessionsList() {
+        const sessionsList = document.getElementById('futureSessions');
+        const allSessions = this.sessions.getAllSessions();
+        
+        sessionsList.innerHTML = allSessions.map(session => `
+            <li class="session-item">
+                <span><strong>${this.formatDate(session.date)}:</strong> ${getServiceName(session.service)}</span>
+                <button class="btn btn-sm btn-outline-danger delete-session" data-date="${session.date}">Удалить</button>
+            </li>
+        `).join('');
+
+        // Добавляем обработчики для кнопок удаления
+        sessionsList.querySelectorAll('.delete-session').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const date = e.target.dataset.date;
+                if (confirm('Удалить эту сессию?')) {
+                    this.sessions.removeSession(date);
+                    this.render();
+                    this.updateSessionsList();
+                }
+            });
+        });
+    }
+
+    formatDate(dateString) {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('ru-RU', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric'
+        });
+    }
+}
+
 // Инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM загружен');
+
+    // Инициализация навигации
+    const navigation = new Navigation();
 
     // Инициализация модального окна бронирования
     const bookingModal = new Modal('bookingModal');
@@ -195,6 +379,9 @@ document.addEventListener('DOMContentLoaded', function() {
     if (tabsContainer) {
         const tabs = new Tabs(tabsContainer);
     }
+
+    // Инициализация календаря
+    const calendar = new Calendar();
 
     // Обработчик для кнопки личного кабинета
     const btnAccount = document.getElementById('btnAccount');
@@ -270,7 +457,4 @@ document.addEventListener('DOMContentLoaded', function() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     }
-
-    // Инициализация навигации
-    const navigation = new Navigation();
 });

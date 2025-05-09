@@ -11,6 +11,7 @@ body {
   background-color: #121212;
   color: #e0e0e0;
   min-height: 100vh;
+  padding-top: 76px; /* Высота навигационной панели */
 }
 
 /* Стили для главного экрана */
@@ -179,13 +180,16 @@ body {
 
 /* Стили для навигации */
 .navbar {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   background-color: rgba(33, 37, 41, 0.95);
   backdrop-filter: blur(10px);
   padding: 1rem 0;
   z-index: 1000;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
 }
 
 .navbar .container {
@@ -645,6 +649,34 @@ footer a:focus {
   display: block;
 }
 
+/* Стили для фотографий в личном кабинете */
+#userPhotos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+
+#userPhotos .photo-item {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#userPhotos img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+#userPhotos .photo-item:hover img {
+  transform: scale(1.05);
+}
+
+/* Стили для списка сессий */
 .sessions-list {
   list-style: none;
   padding: 0;
@@ -657,17 +689,99 @@ footer a:focus {
   background-color: #f8f9fa;
   border-radius: 0.25rem;
   transition: background-color 0.3s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .session-item:hover {
   background-color: #e9ecef;
 }
 
+/* Стили для календаря */
 .calendar-wrapper {
   background-color: #fff;
   padding: 1rem;
   border-radius: 0.25rem;
   color: #333;
+}
+
+.calendar {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.calendar th,
+.calendar td {
+  padding: 0.5rem;
+  text-align: center;
+  border: 1px solid #dee2e6;
+}
+
+.calendar th {
+  background-color: #f8f9fa;
+  font-weight: 500;
+}
+
+.calendar td {
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.calendar td:hover {
+  background-color: #e9ecef;
+}
+
+.calendar .today {
+  background-color: #e3f2fd;
+  font-weight: bold;
+}
+
+.calendar .has-session {
+  background-color: #fff3cd;
+  position: relative;
+}
+
+.calendar .has-session::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  background-color: #ffc107;
+  border-radius: 50%;
+}
+
+.calendar .selected {
+  background-color: #0d6efd;
+  color: #fff;
+}
+
+.calendar-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.calendar-nav button {
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+  color: #666;
+  transition: color 0.3s ease;
+}
+
+.calendar-nav button:hover {
+  color: #0d6efd;
+}
+
+.calendar-nav .current-month {
+  font-size: 1.25rem;
+  font-weight: 500;
 }
 
 .row {
