@@ -106,12 +106,63 @@ class Modal {
     }
 }
 
+// Класс для работы с вкладками
+class Tabs {
+    constructor(container) {
+        this.container = container;
+        this.tabButtons = container.querySelectorAll('.tab-btn');
+        this.tabPanes = container.querySelectorAll('.tab-pane');
+        this.setupEventListeners();
+    }
+
+    setupEventListeners() {
+        this.tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const tabId = button.dataset.tab;
+                this.switchTab(tabId);
+            });
+        });
+    }
+
+    switchTab(tabId) {
+        // Деактивируем все кнопки и панели
+        this.tabButtons.forEach(btn => btn.classList.remove('active'));
+        this.tabPanes.forEach(pane => pane.classList.remove('active'));
+
+        // Активируем выбранную вкладку
+        const activeButton = this.container.querySelector(`[data-tab="${tabId}"]`);
+        const activePane = this.container.querySelector(`#${tabId}`);
+        
+        if (activeButton && activePane) {
+            activeButton.classList.add('active');
+            activePane.classList.add('active');
+        }
+    }
+}
+
 // Инициализация при загрузке страницы
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM загружен');
 
-    // Инициализация модального окна
+    // Инициализация модального окна бронирования
     const bookingModal = new Modal('bookingModal');
+
+    // Инициализация модального окна личного кабинета
+    const accountModal = new Modal('accountModal');
+
+    // Инициализация вкладок в личном кабинете
+    const tabsContainer = document.querySelector('.tabs');
+    if (tabsContainer) {
+        const tabs = new Tabs(tabsContainer);
+    }
+
+    // Обработчик для кнопки личного кабинета
+    const btnAccount = document.getElementById('btnAccount');
+    if (btnAccount) {
+        btnAccount.addEventListener('click', () => {
+            accountModal.show();
+        });
+    }
 
     // Обработчики для кнопок "Записаться на съёмку"
     const btnBookingMain = document.getElementById('btnBookingMain');

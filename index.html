@@ -325,42 +325,42 @@
     </div>
   </div>
 
-  <div class="modal fade" id="accountModal" tabindex="-1" aria-labelledby="accountModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-scrollable">
-      <div class="modal-content bg-dark text-white">
-        <div class="modal-header">
-          <h5 class="modal-title" id="accountModalLabel">Личный кабинет</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Закрыть"></button>
-        </div>
-        <div class="modal-body">
-          <ul class="nav nav-tabs mb-3" id="accountTabs" role="tablist" aria-label="Разделы личного кабинета">
-            <li class="nav-item" role="presentation"><button class="nav-link active" id="photos-tab" data-bs-toggle="tab" data-bs-target="#photos" type="button" role="tab" aria-controls="photos" aria-selected="true">Мои фото</button></li>
-            <li class="nav-item" role="presentation"><button class="nav-link" id="sessions-tab" data-bs-toggle="tab" data-bs-target="#sessions" type="button" role="tab" aria-controls="sessions" aria-selected="false">Будущие фотосессии</button></li>
-            <li class="nav-item" role="presentation"><button class="nav-link" id="calendar-tab" data-bs-toggle="tab" data-bs-target="#calendar" type="button" role="tab" aria-controls="calendar" aria-selected="false">Календарь</button></li>
-          </ul>
-          <div class="tab-content" id="accountTabsContent">
-            <div class="tab-pane fade show active" id="photos" role="tabpanel" aria-labelledby="photos-tab" tabindex="0">
+  <div class="modal" id="accountModal">
+    <div class="modal-content modal-xl">
+      <div class="modal-header">
+        <h5 class="modal-title">Личный кабинет</h5>
+        <button type="button" class="close-btn" aria-label="Закрыть">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="tabs">
+          <div class="tabs-nav">
+            <button class="tab-btn active" data-tab="photos">Мои фото</button>
+            <button class="tab-btn" data-tab="sessions">Будущие фотосессии</button>
+            <button class="tab-btn" data-tab="calendar">Календарь</button>
+          </div>
+          <div class="tabs-content">
+            <div class="tab-pane active" id="photos">
               <p>Здесь будут ваши загруженные фотографии.</p>
-              <div id="userPhotos" class="row g-3">
-                <div class="col-6 col-md-4 col-lg-3"><img src="./images/my-photo1.jpeg" alt="Фото пользователя 1" class="img-fluid rounded" loading="lazy" /></div>
-                <div class="col-6 col-md-4 col-lg-3"><img src="./images/my-photo2.jpeg" alt="Фото пользователя 2" class="img-fluid rounded" loading="lazy" /></div>
+              <div id="userPhotos" class="row">
+                <div class="col"><img src="./images/my-photo1.jpeg" alt="Фото пользователя 1" class="img-fluid" loading="lazy" /></div>
+                <div class="col"><img src="./images/my-photo2.jpeg" alt="Фото пользователя 2" class="img-fluid" loading="lazy" /></div>
               </div>
             </div>
-            <div class="tab-pane fade" id="sessions" role="tabpanel" aria-labelledby="sessions-tab" tabindex="0">
+            <div class="tab-pane" id="sessions">
               <p>Ваши запланированные фотосессии:</p>
-              <ul id="futureSessions" class="list-group list-group-flush">
-                <li class="list-group-item bg-secondary bg-opacity-50 text-white rounded mb-2"><strong>12.05.2025:</strong> Fashion съёмка</li>
-                <li class="list-group-item bg-secondary bg-opacity-50 text-white rounded mb-2"><strong>25.05.2025:</strong> Портрет</li>
+              <ul id="futureSessions" class="sessions-list">
+                <li class="session-item"><strong>12.05.2025:</strong> Fashion съёмка</li>
+                <li class="session-item"><strong>25.05.2025:</strong> Портрет</li>
               </ul>
             </div>
-            <div class="tab-pane fade" id="calendar" role="tabpanel" aria-labelledby="calendar-tab" tabindex="0">
-              <div id="calendarContainer" class="bg-white rounded p-3 text-dark"></div>
+            <div class="tab-pane" id="calendar">
+              <div id="calendarContainer" class="calendar-wrapper"></div>
             </div>
           </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Закрыть</button>
-        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary close-btn">Закрыть</button>
       </div>
     </div>
   </div>
