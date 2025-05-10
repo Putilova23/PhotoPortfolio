@@ -1,0 +1,169 @@
+/* style.css */
+
+/* Общие настройки */
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #121212;
+  color: #e0e0e0;
+  scroll-behavior: smooth;
+  min-height: 100vh;
+}
+
+/* Секция home с фоновым изображением и оверлеем */
+#home {
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.bg-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.35);
+  z-index: 1;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.6) 0%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
+  z-index: 2;
+}
+
+#home .container {
+  z-index: 3;
+}
+
+/* Кнопки: светлее при наведении, темнее при нажатии */
+.btn {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-light:hover,
+.btn-outline-light:hover {
+  filter: brightness(1.2);
+}
+
+.btn-light:active,
+.btn-outline-light:active {
+  filter: brightness(0.8);
+}
+
+.btn-dark:hover,
+.btn-outline-dark:hover {
+  filter: brightness(1.2);
+}
+
+.btn-dark:active,
+.btn-outline-dark:active {
+  filter: brightness(0.8);
+}
+
+/* Карточки этапов работы */
+.stage-card {
+  background-color: rgba(100, 100, 100, 0.5);
+  border: none;
+  color: #f0f0f0;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.stage-card:hover {
+  background-color: rgba(150, 150, 150, 0.7);
+}
+
+/* Изображения портфолио */
+.portfolio-img {
+  height: 400px;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  user-select: none;
+}
+
+/* Карточки услуг */
+.service-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: default;
+}
+
+.service-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.15);
+}
+
+.service-img {
+  height: 180px;
+  object-fit: cover;
+  user-select: none;
+}
+
+/* Отзывы */
+.review-card {
+  transition: box-shadow 0.3s ease;
+  cursor: default;
+}
+
+.review-card:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Нижний колонтитул */
+footer a {
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+footer a:hover,
+footer a:focus {
+  color: #bbbbbb;
+}
+
+/* Кнопка прокрутки наверх */
+#btnScrollTop {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+/* Модальные окна */
+.modal-content {
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+}
+
+/* Селект с множественным выбором */
+select[multiple] {
+  height: 120px;
+}
+
+/* Календарь */
+#calendarContainer {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+/* Стили для календаря (будут добавлены JS) */
+
+/* Адаптивность */
+@media (max-width: 575.98px) {
+  #home h1 {
+    font-size: 3rem;
+  }
+  #home h2 {
+    font-size: 1.5rem;
+  }
+}
