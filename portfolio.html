@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Портфолио — Александра, фотограф</title>
+  <!-- Bootstrap CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <!-- Google Fonts: Montserrat -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap"
+    rel="stylesheet"
+  />
+  <!-- FontAwesome Free Icons -->
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Дополнительные стили для портфолио */
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #121212;
+      color: #e0e0e0;
+      min-height: 100vh;
+    }
+    h2 {
+      font-weight: 700;
+      margin-bottom: 2rem;
+    }
+    .accordion-button {
+      background-color: #1e1e1e;
+      color: #e0e0e0;
+      font-weight: 600;
+      font-size: 1.25rem;
+      border: none;
+      box-shadow: none;
+    }
+    .accordion-button:not(.collapsed) {
+      background-color: #333333;
+      color: #fff;
+      box-shadow: inset 0 -1px 0 rgb(0 0 0 / 0.125);
+    }
+    .accordion-body {
+      background-color: #222222;
+      padding: 1rem 2rem;
+    }
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
+      gap: 1rem;
+    }
+    .portfolio-grid img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      user-select: none;
+      box-shadow: 0 0 8px rgba(255,255,255,0.1);
+    }
+    .portfolio-grid img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px rgba(255,255,255,0.3);
+    }
+    .btn-booking {
+      margin-top: 2rem;
+      display: block;
+      max-width: 220px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    footer {
+      background-color: #1a1a1a;
+      color: #ccc;
+      padding: 1rem 0;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+    footer a {
+      color: #ccc;
+      margin: 0 0.5rem;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    footer a:hover,
+    footer a:focus {
+      color: #fff;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <!-- Навигация -->
+  <nav
+    class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm"
+    aria-label="Главное меню"
+  >
+    <div class="container">
+      <a class="navbar-brand fs-3 fw-bold" href="index.html">Александра</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Переключить навигацию"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div
+        class="collapse navbar-collapse justify-content-center"
+        id="navbarNav"
+      >
+        <ul class="navbar-nav fs-5">
+          <li class="nav-item"><a class="nav-link" href="index.html#about">Обо мне</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#stages">Этапы работы</a></li>
+          <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Портфолио</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#services">Услуги</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#reviews">Отзывы</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#contacts">Контакты</a></li>
+        </ul>
+      </div>
+      <button
+        class="btn btn-outline-light ms-3"
+        id="btnAccount"
+        aria-label="Личный кабинет"
+        title="Личный кабинет"
+      >
+        <i class="fa-regular fa-user"></i>
+      </button>
+    </div>
+  </nav>
+
+  <main class="container py-5">
+    <h2 class="text-center">Портфолио</h2>
+
+    <div class="accordion" id="portfolioAccordion" role="tablist" aria-multiselectable="true">
+
+      <!-- Fashion -->
+      <div class="accordion-item bg-dark text-white mb-3 rounded-3">
+        <h2 class="accordion-header" id="headingFashion">
+          <button
+            class="accordion-button collapsed"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseFashion"
+            aria-expanded="false"
+            aria-controls="collapseFashion"
+          >
+            Fashion
+          </button>
+        </h2>
+        <div
+          id="collapseFashion"
+          class="accordion-collapse collapse"
+          aria-labelledby="headingFashion"
+          data-bs-parent="#portfolioAccordion"
+        >
+          <div class="accordion-body">
+            <div class="portfolio-grid" aria-label="Фотографии Fashion">
+              <img src="images/fashion1.jpeg" alt="Fashion фото 1" loading="lazy" />
+              <img src="images/fashion2.jpeg" alt="Fashion фото 2" loading="lazy" />
+              <img src="images/fashion3.jpeg" alt="Fashion фото 3" loading="lazy" />
+              <img src="images/fashion4.jpeg" alt="Fashion фото 4" loading="lazy" />
+              <img src="images/fashion5.jpeg" alt="Fashion фото 5" loading="lazy" />
+              <img src="images/fashion6.jpeg" alt="Fashion фото 6" loading="lazy" />
+              <img src="images/fashion7.jpeg" alt="Fashion фото 7" loading="lazy" />
+              <img src="images/fashion8.jpeg" alt="Fashion фото 8" loading="lazy" />
+              <img src="images/fashion9.jpeg" alt="Fashion фото 9" loading="lazy" />
+              <img src="images/fashion10.jpeg" alt="Fashion фото 10" loading="lazy" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Портрет -->
+      <div class="accordion-item bg-dark text-white mb-3 rounded-3">
+        <h2 class="accordion-header" id="headingPortrait">
+          <button
+            class="accordion-button collapsed"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapsePortrait"
+            aria-expanded="false"
+            aria-controls="collapsePortrait"
+          >
+            Портрет
+          </button>
+        </h2>
+        <div
+          id="collapsePortrait"
+          class="accordion-collapse collapse"
+          aria-labelledby="headingPortrait"
+          data-bs-parent="#portfolioAccordion"
+        >
+          <div class="accordion-body">
+            <div class="portfolio-grid" aria-label="Фотографии Портрет">
+              <img src="images/portrait1.jpeg" alt="Портрет фото 1" loading="lazy" />
+              <img src="images/portrait2.jpeg" alt="Портрет фото 2" loading="lazy" />
+              <img src="images/portrait3.jpeg" alt="Портрет фото 3" loading="lazy" />
+              <img src="images/portrait4.jpeg" alt="Портрет фото 4" loading="lazy" />
+              <img src="images/portrait5.jpeg" alt="Портрет фото 5" loading="lazy" />
+              <img src="images/portrait6.jpeg" alt="Портрет фото 6" loading="lazy" />
+              <img src="images/portrait7.jpeg" alt="Портрет фото 7" loading="lazy" />
+              <img src="images/portrait8.jpeg" alt="Портрет фото 8" loading="lazy" />
+              <img src="images/portrait9.jpeg" alt="Портрет фото 9" loading="lazy" />
+              <img src="images/portrait10.jpeg" alt="Портрет фото 10" loading="lazy" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Интерьерная фотография -->
+      <div class="accordion-item bg-dark text-white mb-3 rounded-3">
+        <h2 class="accordion-header" id="headingInterior">
+          <button
+            class="accordion-button collapsed"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseInterior"
+            aria-expanded="false"
+            aria-controls="collapseInterior"
+          >
+            Интерьерная фотография
+          </button>
+        </h2>
+        <div
+          id="collapseInterior"
+          class="accordion-collapse collapse"
+          aria-labelledby="headingInterior"
+          data-bs-parent="#portfolioAccordion"
+        >
+          <div class="accordion-body">
+            <div class="portfolio-grid" aria-label="Фотографии Интерьерная фотография">
+              <img src="images/interior1.jpeg" alt="Интерьер фото 1" loading="lazy" />
+              <img src="images/interior2.jpeg" alt="Интерьер фото 2" loading="lazy" />
+              <img src="images/interior3.jpeg" alt="Интерьер фото 3" loading="lazy" />
+              <img src="images/interior4.jpeg" alt="Интерьер фото 4" loading="lazy" />
+              <img src="images/interior5.jpeg" alt="Интерьер фото 5" loading="lazy" />
+              <img src="images/interior6.jpeg" alt="Интерьер фото 6" loading="lazy" />
+              <img src="images/interior7.jpeg" alt="Интерьер фото 7" loading="lazy" />
+              <img src="images/interior8.jpeg" alt="Интерьер фото 8" loading="lazy" />
+              <img src="images/interior9.jpeg" alt="Интерьер фото 9" loading="lazy" />
+              <img src="images/interior10.jpeg" alt="Интерьер фото 10" loading="lazy" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Предметная фотография -->
+      <div class="accordion-item bg-dark text-white mb-3 rounded-3">
+        <h2 class="accordion-header" id="headingProduct">
+          <button
+            class="accordion-button collapsed"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseProduct"
+            aria-expanded="false"
+            aria-controls="collapseProduct"
+          >
+            Предметная фотография
+          </button>
+        </h2>
+        <div
+          id="collapseProduct"
+          class="accordion-collapse collapse"
+          aria-labelledby="headingProduct"
+          data-bs-parent="#portfolioAccordion"
+        >
+          <div class="accordion-body">
+            <div class="portfolio-grid" aria-label="Фотографии Предметная фотография">
+              <img src="images/subject1.jpeg" alt="Предмет фото 1" loading="lazy" />
+              <img src="images/subject2.jpeg" alt="Предмет фото 2" loading="lazy" />
+              <img src="images/subject3.jpeg" alt="Предмет фото 3" loading="lazy" />
+              <img src="images/subject4.jpeg" alt="Предмет фото 4" loading="lazy" />
+              <img src="images/subject5.jpeg" alt="Предмет фото 5" loading="lazy" />
+              <img src="images/subject6.jpeg" alt="Предмет фото 6" loading="lazy" />
+              <img src="images/subject7.jpeg" alt="Предмет фото 7" loading="lazy" />
+              <img src="images/subject8.jpeg" alt="Предмет фото 8" loading="lazy" />
+              <img src="images/subject9.jpeg" alt="Предмет фото 9" loading="lazy" />
+              <img src="images/subject10.jpeg" alt="Предмет фото 10" loading="lazy" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Свадебная фотография -->
+      <div class="accordion-item bg-dark text-white mb-3 rounded-3">
+        <h2 class="accordion-header" id="headingWedding">
+          <button
+            class="accordion-button collapsed"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseWedding"
+            aria-expanded="false"
+            aria-controls="collapseWedding"
+          >
+            Свадебная фотография
+          </button>
+        </h2>
+        <div
+          id="collapseWedding"
+          class="accordion-collapse collapse"
+          aria-labelledby="headingWedding"
+          data-bs-parent="#portfolioAccordion"
+        >
+          <div class="accordion-body">
+            <div class="portfolio-grid" aria-label="Фотографии Свадебная фотография">
+              <img src="images/wedding1.jpeg" alt="Свадебное фото 1" loading="lazy" />
+              <img src="images/wedding2.jpeg" alt="Свадебное фото 2" loading="lazy" />
+              <img src="images/wedding3.jpeg" alt="Свадебное фото 3" loading="lazy" />
+              <img src="images/wedding4.jpeg" alt="Свадебное фото 4" loading="lazy" />
+              <img src="images/wedding5.jpeg" alt="Свадебное фото 5" loading="lazy" />
+              <img src="images/wedding6.jpeg" alt="Свадебное фото 6" loading="lazy" />
+              <img src="images/wedding7.jpeg" alt="Свадебное фото 7" loading="lazy" />
+              <img src="images/wedding8.jpeg" alt="Свадебное фото 8" loading="lazy" />
+              <img src="images/wedding9.jpeg" alt="Свадебное фото 9" loading="lazy" />
+              <img src="images/wedding10.jpeg" alt="Свадебное фото 10" loading="lazy" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Пейзаж -->
+      <div class="accordion-item bg-dark text-white mb-3 rounded-3">
+        <h2 class="accordion-header" id="headingLandscape">
+          <button
+            class="accordion-button collapsed"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseLandscape"
+            aria-expanded="false"
+            aria-controls="collapseLandscape"
+          >
+            Пейзаж
+          </button>
+        </h2>
+        <div
+          id="collapseLandscape"
+          class="accordion-collapse collapse"
+          aria-labelledby="headingLandscape"
+          data-bs-parent="#portfolioAccordion"
+        >
+          <div class="accordion-body">
+            <div class="portfolio-grid" aria-label="Фотографии Пейзаж">
+              <img src="images/landscape1.jpeg" alt="Пейзаж фото 1" loading="lazy" />
+              <img src="images/landscape2.jpeg" alt="Пейзаж фото 2" loading="lazy" />
+              <img src="images/landscape3.jpeg" alt="Пейзаж фото 3" loading="lazy" />
+              <img src="images/landscape4.jpeg" alt="Пейзаж фото 4" loading="lazy" />
+              <img src="images/landscape5.jpeg" alt="Пейзаж фото 5" loading="lazy" />
+              <img src="images/landscape6.jpeg" alt="Пейзаж фото 6" loading="lazy" />
+              <img src="images/landscape7.jpeg" alt="Пейзаж фото 7" loading="lazy" />
+              <img src="images/landscape8.jpeg" alt="Пейзаж фото 8" loading="lazy" />
+              <img src="images/landscape9.jpeg" alt="Пейзаж фото 9" loading="lazy" />
+              <img src="images/landscape10.jpeg" alt="Пейзаж фото 10" loading="lazy" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn btn-light btn-lg btn-booking" id="btnBookingPortfolio" aria-label="Записаться на съёмку">
+      Записаться на съёмку
+    </button>
+  </main>
+
+  <!-- Нижний колонтитул -->
+  <footer>
+    <div>
+      © 2020-2025 Александра | Все права защищены!
+    </div>
+    <div class="mt-2">
+      <a href="tel:+79991234567" aria-label="Позвонить">
+        <i class="fa-solid fa-phone"></i> +7 (999) 123-45-67
+      </a>
+      |
+      <a href="mailto:alexandra.photo@example.com" aria-label="Написать email">
+        <i class="fa-solid fa-envelope"></i> alexandra.photo@example.com
+      </a>
+      |
+      <a href="https://wa.me/79991234567" target="_blank" rel="noopener" aria-label="WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+      </a>
+      |
+      <a href="https://vk.com/alexandra_photo" target="_blank" rel="noopener" aria-label="ВКонтакте">
+        <i class="fa-brands fa-vk"></i>
+      </a>
+      |
+      <a href="https://t.me/alexandra_photo" target="_blank" rel="noopener" aria-label="Telegram">
+        <i class="fa-brands fa-telegram"></i>
+      </a>
+    </div>
+  </footer>
+
+  <!-- Модальное окно записи на съёмку (тот же код, что и на главной странице) -->
+  <div
+    class="modal fade"
+    id="bookingModal"
+    tabindex="-1"
+    aria-labelledby="bookingModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <form id="bookingForm" class="modal-content needs-validation" novalidate>
+        <div class="modal-header bg-dark text-white">
+          <h5 class="modal-title" id="bookingModalLabel">Записаться на съёмку</h5>
+          <button
+            type="button"
+            class="btn-close btn-close-white"
+            data-bs-dismiss="modal"
+            aria-label="Закрыть"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="fullName" class="form-label">ФИО</label>
+            <input
+              type="text"
+              class="form-control"
+              id="fullName"
+              name="fullName"
+              required
+              placeholder="Иванова Александра Сергеевна"
+            />
+            <div class="invalid-feedback">Пожалуйста, введите ФИО.</div>
+          </div>
+          <div class="mb-3">
+            <label for="contact" class="form-label">Контактные данные</label>
+            <input
+              type="tel"
+              class="form-control"
+              id="contact"
+              name="contact"
+              required
+              placeholder="+7 (999) 123-45-67"
+              pattern="^\+7\s?\(?\d{3}\)?\s?\d{3}[-]?\d{2}[-]?\d{2}$"
+            />
+            <div class="invalid-feedback">
+              Пожалуйста, введите корректный номер телефона в формате +7 (999) 123-45-67.
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="serviceSelect" class="form-label">Выберите услугу</label>
+            <select
+              multiple
+              class="form-select"
+              id="serviceSelect"
+              name="services"
+              required
+              aria-describedby="serviceHelp"
+            >
+              <option value="fashion">Fashion</option>
+              <option value="portrait">Портрет</option>
+              <option value="interior">Интерьерная фотография</option>
+              <option value="product">Предметная фотография</option>
+              <option value="wedding">Свадебная фотография</option>
+              <option value="landscape">Пейзаж</option>
+            </select>
+            <div id="serviceHelp" class="form-text">
+              Можно выбрать несколько услуг, удерживая Ctrl (Cmd на Mac).
+            </div>
+            <div class="invalid-feedback">Пожалуйста, выберите хотя бы одну услугу.</div>
+          </div>
+          <div class="mb-3">
+            <label for="date" class="form-label">Выберите дату</label>
+            <input
+              type="date"
+              class="form-control"
+              id="date"
+              name="date"
+              required
+              min=""
+            />
+            <div class="invalid-feedback">Пожалуйста, выберите дату.</div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-dark">Отправить</button>
+          <button
+            type="button"
+            class="btn btn-outline-secondary"
+            data-bs-dismiss="modal"
+          >
+            Отмена
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS и Popper -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+  ></script>
+  <script>
+    // Установка минимальной даты в форме записи (сегодня)
+    document.addEventListener('DOMContentLoaded', () => {
+      const dateInput = document.getElementById('date');
+      if (dateInput) {
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.setAttribute('min', today);
+      }
+
+      // Инициализация модального окна записи
+      const bookingModal = new bootstrap.Modal(document.getElementById('bookingModal'));
+
+      // Кнопка вызова модального окна записи на портфолио странице
+      const btnBookingPortfolio = document.getElementById('btnBookingPortfolio');
+      if (btnBookingPortfolio) {
+        btnBookingPortfolio.addEventListener('click', () => {
+          bookingModal.show();
+        });
+      }
+
+      // Валидация формы записи
+      const bookingForm = document.getElementById('bookingForm');
+      bookingForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (!bookingForm.checkValidity()) {
+          e.stopPropagation();
+          bookingForm.classList.add('was-validated');
+          return;
+        }
+        const formData = new FormData(bookingForm);
+        const fullName = formData.get('fullName').trim();
+        const contact = formData.get('contact').trim();
+        const services = formData.getAll('services');
+        const date = formData.get('date');
+
+        if (services.length === 0) {
+          alert('Пожалуйста, выберите хотя бы одну услугу.');
+          return;
+        }
+
+        alert(
+          `Спасибо, ${fullName}! Ваша заявка на ${services.join(
+            ', '
+          )} на дату ${date} принята. Мы свяжемся с вами по номеру ${contact}.`
+        );
+
+        bookingForm.reset();
+        bookingForm.classList.remove('was-validated');
+        bookingModal.hide();
+      });
+    });
+  </script>
+</body>
+</html>
